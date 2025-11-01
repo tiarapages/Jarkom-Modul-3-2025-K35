@@ -323,6 +323,31 @@ EXIT;
 ```
 edit konfigurasi `nano /etc/mysql/mariadb.conf.d/50-server.cnf` dan rubah bagian `bind-address = 0.0.0.0` dan lanjutkan restart mariadb `service mariadb restart`
 
+Di Node laravel jalankan konfigurasi
+```
+apt update -y
+apt install -y php8.4 php8.4-fpm php8.4-mysql composer nginx git unzip
+```
+hapus default laravel `rm -rf /var/www/laravel` dan jalankan git clone
+```
+cd /var/www
+git clone https://github.com/laravel/laravel.git laravel
+
+cd laravel
+composer install
+cp .env.example .env
+php artisan key:generate
+```
+edit laravel konfigurasi
+set DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD accordingly:
+DB_CONNECTION=mysql
+DB_HOST=10.81.4.3       
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=root
+DB_PASSWORD=123
+```
+
 
 
 
