@@ -34,11 +34,6 @@ Berikut merupakan masing masing Address pada node
 <img width="1061" height="816" alt="image" src="https://github.com/user-attachments/assets/bdfe3ab2-d656-4838-9aa8-6c8c4060098e" />
 
 # 2
-> Raja Pelaut Aldarion, penguasa wilayah Númenor, memutuskan cara pembagian tanah client secara dinamis. Ia menetapkan:
--Client Dinamis Keluarga Manusia: Mendapatkan tanah di rentang [prefix ip].1.6 - [prefix ip].1.34 dan [prefix ip].1.68 - [prefix ip].1.94.
--Client Dinamis Keluarga Peri: Mendapatkan tanah di rentang [prefix ip].2.35 - [prefix ip].2.67 dan [prefix ip].2.96 - [prefix ip].2.121.
--Khamul yang misterius: Diberikan tanah tetap di [prefix ip].3.95, agar keberadaannya selalu diketahui. Pastikan Durin dapat menyampaikan dekrit ini ke semua wilayah yang terhubung dengannya.
-
 
 Aldarion bertugas sebagai server DHCP pusat yang membagikan alamat IP secara dinamis ke seluruh klien dari dua keluarga besar (Manusia dan Peri) serta memberikan alamat IP statis kepada Khamul.
 Sementara itu, Durin berperan sebagai DHCP Relay Agent — ia meneruskan semua permintaan DHCP dari klien di jaringan lain agar dapat diterima dan direspons oleh server DHCP di Aldarion.
@@ -66,9 +61,6 @@ Sementara itu, Durin berperan sebagai DHCP Relay Agent — ia meneruskan semua p
 
 # 3
 
- > Untuk mengontrol arus informasi ke dunia luar (Valinor/Internet), sebuah menara pengawas, Minastir didirikan. Minastir mengatur agar semua node (kecuali Durin) hanya dapat mengirim pesan ke luar Arda setelah melewati pemeriksaan di Minastir.
-
-
 Minastir berfungsi sebagai DNS relay (menara pengawas) yang mengontrol dan meneruskan permintaan DNS dari node-node internal (seperti Khamul, Gilgalad, dan Amandil) ke dunia luar (Internet / Valinor). Semua lalu lintas DNS dari Arda harus melewati Minastir sebelum keluar.
 
 ### Uji Berhasil
@@ -77,8 +69,6 @@ Saat perintah ip a di Khamul, Gilgalad, dan Amandil tetap menampilkan IP lokal m
 <img width="1192" height="170" alt="image" src="https://github.com/user-attachments/assets/a1b90847-b729-43db-8a5c-270376884e6a" />
 
 # 4
-
-> Ratu Erendis, sang pembuat peta, menetapkan nama resmi untuk wilayah utama (<xxxx>.com). Ia menunjuk dirinya (ns1.<xxxx>.com) dan muridnya Amdir (ns2.<xxxx>.com) sebagai penjaga peta resmi. Setiap lokasi penting (Palantir, Elros, Pharazon, Elendil, Isildur, Anarion, Galadriel, Celeborn, Oropher) diberikan nama domain unik yang menunjuk ke lokasi fisik tanah mereka. Pastikan Amdir selalu menyalin peta (master-slave) dari Erendis dengan setia.
 
 Erendis, sebagai pembuat peta digital dunia Arda, bertugas menetapkan zona DNS utama untuk domain k35.com. Ia menunjuk dirinya sebagai nameserver utama (ns1.k35.com) dan muridnya Amdir sebagai nameserver sekunder (ns2.k35.com).
 Sistem ini memastikan bahwa seluruh lokasi penting (Palantir, Elros, Pharazon, Elendil, Isildur, Anarion, Galadriel, Celeborn, dan Oropher) dapat diakses melalui nama domain yang unik.
@@ -97,8 +87,6 @@ ping galadriel.k35.com
 <img width="691" height="726" alt="image" src="https://github.com/user-attachments/assets/53b9f538-162d-46c6-9036-ba85142dfc07" />
 
 # 5
-
-> Untuk memudahkan, nama alias www.<xxxx>.com dibuat untuk peta utama <xxxx>.com. Reverse PTR juga dibuat agar lokasi Erendis dan Amdir dapat dilacak dari alamat fisik tanahnya. Erendis juga menambahkan pesan rahasia (TXT record) pada petanya: "Cincin Sauron" yang menunjuk ke lokasi Elros, dan "Aliansi Terakhir" yang menunjuk ke lokasi Pharazon. Pastikan Amdir juga mengetahui pesan rahasia ini.
 
 ### Erendis memperluas sistem pemetaan digital k35.com dengan menambahkan:
 
@@ -205,6 +193,11 @@ Lacak erendis dari ip
 `dig -x 10.81.3.3`
 Baca pesan txt
 `dig TXT erendis.k35.com`
+
+<img width="840" height="517" alt="Screenshot 2025-11-02 154505" src="https://github.com/user-attachments/assets/0235299f-1433-478b-8870-15815dc3311e" />
+<img width="1028" height="498" alt="Screenshot 2025-11-02 154514" src="https://github.com/user-attachments/assets/5c34e0db-db16-4e4c-9bbb-452819a6c5e2" />
+<img width="834" height="543" alt="Screenshot 2025-11-02 154522" src="https://github.com/user-attachments/assets/f201617c-4eac-425d-b34a-a24ecacf67a0" />
+
 
 # 6
 Konfigurasi di aldarion `nano /etc/dhcp/dhcpd.conf`
@@ -347,8 +340,38 @@ DB_DATABASE=laravel_db
 DB_USERNAME=root
 DB_PASSWORD=123
 ```
+# 12
+<img width="520" height="96" alt="Screenshot 2025-11-02 155042" src="https://github.com/user-attachments/assets/087c6214-6e23-481e-8cc9-afb0d6c70d87" />
+<img width="495" height="49" alt="Screenshot 2025-11-02 155118" src="https://github.com/user-attachments/assets/e5a9335b-aa8a-4746-971d-29717488f4e2" />
+# 13
+<img width="498" height="73" alt="Screenshot 2025-11-02 155242" src="https://github.com/user-attachments/assets/891ddea2-0499-44e0-8aec-738463cf08d7" />
+<img width="505" height="65" alt="Screenshot 2025-11-02 155251" src="https://github.com/user-attachments/assets/6c11b28f-f63c-413c-8afd-9a8aa8b92fb6" />
+
+# 14
+- Testcase benar
+<img width="749" height="75" alt="Screenshot 2025-11-02 155431" src="https://github.com/user-attachments/assets/24e90cec-a61c-4c52-83c7-abd970ad2426" />
+<img width="705" height="73" alt="Screenshot 2025-11-02 155439" src="https://github.com/user-attachments/assets/2863ac98-d71d-4518-99ee-4924b9d5a2f2" />
+<img width="718" height="45" alt="Screenshot 2025-11-02 155445" src="https://github.com/user-attachments/assets/587f59d7-7567-4078-9b4c-843caf0182c1" />
+<img width="749" height="49" alt="Screenshot 2025-11-02 155450" src="https://github.com/user-attachments/assets/1e7f3d16-4cb8-40c1-8b7b-1bd3108edbbd" />
 
 
+- Testcase salah karena password salah
+<img width="726" height="182" alt="Screenshot 2025-11-02 155600" src="https://github.com/user-attachments/assets/3ebeb828-e1b6-4494-8d2e-8831b5d52b84" />
 
+# 15
+<img width="741" height="507" alt="Screenshot 2025-11-02 155653" src="https://github.com/user-attachments/assets/dc310ad4-6263-4ee2-a320-36a6e67f9801" />
 
+# 16
+<img width="1460" height="777" alt="Screenshot 2025-11-02 155749" src="https://github.com/user-attachments/assets/3d52f878-a517-4ddf-b0c0-e565baef43d3" />
 
+# 17
+<img width="837" height="925" alt="Screenshot 2025-11-02 155858" src="https://github.com/user-attachments/assets/6724af6c-b8c8-4da4-89fb-3af6afe4413c" />
+- Waktu Galadriel runtuh
+<img width="1547" height="234" alt="Screenshot 2025-11-02 155913" src="https://github.com/user-attachments/assets/67f1f64d-0047-45d7-bab7-196fcaf2c99c" />
+
+- Waktu Galadriel sudah kembali
+<img width="1553" height="232" alt="Screenshot 2025-11-02 155924" src="https://github.com/user-attachments/assets/e0659b40-16fd-4a56-8e13-bd8c3e9f6571" />
+
+# 18
+- Pada Pharazon
+<img width="664" height="385" alt="Screenshot 2025-11-02 160110" src="https://github.com/user-attachments/assets/e29555d3-f9f3-48a1-a62f-0ba766e44213" />
