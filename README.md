@@ -331,6 +331,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 ```
+```
 edit laravel konfigurasi
 set DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD accordingly:
 DB_CONNECTION=mysql
@@ -340,22 +341,26 @@ DB_DATABASE=laravel_db
 DB_USERNAME=root
 DB_PASSWORD=123
 ```
+
 # 12
+
 <img width="520" height="96" alt="Screenshot 2025-11-02 155042" src="https://github.com/user-attachments/assets/087c6214-6e23-481e-8cc9-afb0d6c70d87" />
 <img width="495" height="49" alt="Screenshot 2025-11-02 155118" src="https://github.com/user-attachments/assets/e5a9335b-aa8a-4746-971d-29717488f4e2" />
+
 # 13
 <img width="498" height="73" alt="Screenshot 2025-11-02 155242" src="https://github.com/user-attachments/assets/891ddea2-0499-44e0-8aec-738463cf08d7" />
 <img width="505" height="65" alt="Screenshot 2025-11-02 155251" src="https://github.com/user-attachments/assets/6c11b28f-f63c-413c-8afd-9a8aa8b92fb6" />
 
 # 14
 - Testcase benar
+
 <img width="749" height="75" alt="Screenshot 2025-11-02 155431" src="https://github.com/user-attachments/assets/24e90cec-a61c-4c52-83c7-abd970ad2426" />
 <img width="705" height="73" alt="Screenshot 2025-11-02 155439" src="https://github.com/user-attachments/assets/2863ac98-d71d-4518-99ee-4924b9d5a2f2" />
 <img width="718" height="45" alt="Screenshot 2025-11-02 155445" src="https://github.com/user-attachments/assets/587f59d7-7567-4078-9b4c-843caf0182c1" />
 <img width="749" height="49" alt="Screenshot 2025-11-02 155450" src="https://github.com/user-attachments/assets/1e7f3d16-4cb8-40c1-8b7b-1bd3108edbbd" />
 
-
 - Testcase salah karena password salah
+
 <img width="726" height="182" alt="Screenshot 2025-11-02 155600" src="https://github.com/user-attachments/assets/3ebeb828-e1b6-4494-8d2e-8831b5d52b84" />
 
 # 15
@@ -366,6 +371,7 @@ DB_PASSWORD=123
 
 # 17
 <img width="837" height="925" alt="Screenshot 2025-11-02 155858" src="https://github.com/user-attachments/assets/6724af6c-b8c8-4da4-89fb-3af6afe4413c" />
+
 - Waktu Galadriel runtuh
 <img width="1547" height="234" alt="Screenshot 2025-11-02 155913" src="https://github.com/user-attachments/assets/67f1f64d-0047-45d7-bab7-196fcaf2c99c" />
 
@@ -373,5 +379,7 @@ DB_PASSWORD=123
 <img width="1553" height="232" alt="Screenshot 2025-11-02 155924" src="https://github.com/user-attachments/assets/e0659b40-16fd-4a56-8e13-bd8c3e9f6571" />
 
 # 18
+
 - Pada Pharazon
+  
 <img width="664" height="385" alt="Screenshot 2025-11-02 160110" src="https://github.com/user-attachments/assets/e29555d3-f9f3-48a1-a62f-0ba766e44213" />
