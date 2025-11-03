@@ -383,3 +383,11 @@ DB_PASSWORD=123
 - Pada Pharazon
   
 <img width="664" height="385" alt="Screenshot 2025-11-02 160110" src="https://github.com/user-attachments/assets/e29555d3-f9f3-48a1-a62f-0ba766e44213" />
+<img width="622" height="195" alt="Screenshot 2025-11-03 234949" src="https://github.com/user-attachments/assets/0d615ea8-e3b4-4e26-ad17-a1fe98057e4f" />
+
+# 19
+<img width="700" height="916" alt="Screenshot 2025-11-03 235043" src="https://github.com/user-attachments/assets/4d4dcea5-53de-408f-a0b3-6ea3645f399f" />
+<img width="911" height="341" alt="Screenshot 2025-11-03 234923" src="https://github.com/user-attachments/assets/daf5af5f-d533-4d00-96f0-fc96e29c82ee" />
+
+
+
