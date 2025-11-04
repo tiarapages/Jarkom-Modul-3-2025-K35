@@ -307,40 +307,303 @@ service mariadb start
 ```
 buat user
 ```
-mysql -u root
-CREATE DATABASE laravel_db;
-CREATE USER 'root'@'%' IDENTIFIED BY '123';
-GRANT ALL PRIVILEGES ON laravel_db.* TO 'root'@'%';
-FLUSH PRIVILEGES;
-EXIT;
+mysql -e "CREATE DATABASE IF NOT EXISTS laravel_db;"
+mysql -e "CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password123';"
+mysql -e "GRANT ALL PRIVILEGES ON laravel_db.* TO 'user'@'%';"
+mysql -e "FLUSH PRIVILEGES;"
 ```
-edit konfigurasi `nano /etc/mysql/mariadb.conf.d/50-server.cnf` dan rubah bagian `bind-address = 0.0.0.0` dan lanjutkan restart mariadb `service mariadb restart`
 
-Di Node laravel jalankan konfigurasi
-```
-apt update -y
-apt install -y php8.4 php8.4-fpm php8.4-mysql composer nginx git unzip
-```
-hapus default laravel `rm -rf /var/www/laravel` dan jalankan git clone
-```
-cd /var/www
-git clone https://github.com/laravel/laravel.git laravel
+edit konfigurasi `sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf` dan lanjutkan restart mariadb `service mariadb restart`
 
-cd laravel
-composer install
-cp .env.example .env
-php artisan key:generate
+Di Node elendil jalankan konfigurasi
 ```
-```
-edit laravel konfigurasi
-set DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD accordingly:
+cd /var/www/laravel-simple-rest-api
+
+cat > .env << EOF
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
 DB_CONNECTION=mysql
-DB_HOST=10.81.4.3       
+DB_HOST=10.81.4.3
 DB_PORT=3306
 DB_DATABASE=laravel_db
-DB_USERNAME=root
-DB_PASSWORD=123
+DB_USERNAME=user
+DB_PASSWORD=password123
+EOF
+
 ```
+generate `php artisan key:generate` dan jalankan git clone
+Jalankan `php artisan migrate:fresh --seed`
+```
+cat > /etc/nginx/sites-available/elendil << EOF
+# Default server - reject requests via IP
+server {
+    listen 8001 default_server;
+    server_name _;
+    return 444;
+}
+
+# Main server - only accept requests via domain
+server {
+    listen 8001;
+    server_name elendil.k35.com;
+
+    root /var/www/laravel-simple-rest-api/public;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+EOF
+```
+DI NODE ISILDUR jalankan  konfigurasi yang sama
+````
+mv /var/www/laravel /var/www/laravel-simple-rest-api
+cd /var/www/laravel-simple-rest-api
+````
+Isi file.env
+```
+cat > .env << EOF
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=10.81.4.3
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=user
+DB_PASSWORD=password123
+EOF
+```
+Generate artisan php `php artisan key:generate`
+Dan masukkan konfigurasi
+```
+cat > /etc/nginx/sites-available/isildur << EOF
+server {
+    listen 8002 default_server;
+    server_name _;
+    return 444;
+}
+
+server {
+    listen 8002;
+    server_name isildur.k35.com;
+
+    root /var/www/laravel-simple-rest-api/public;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+EOF
+```
+Hapus default config
+```
+ln -s /etc/nginx/sites-available/isildur /etc/nginx/sites-enabled/
+rm /etc/nginx/sites-enabled/default
+```
+Dan beri hak akses terhadap konfigurasi kita
+```
+cd /var/www/laravel-simple-rest-api
+chown -R www-data:www-data .
+chmod -R 775 storage bootstrap/cache
+```
+Hapus sisa chace agar program bersih dan start php serta nginx
+```
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+
+nginx -t
+service nginx restart
+service php8.4-fpm restart
+```
+DI NODE ANARION
+````
+mv /var/www/laravel /var/www/laravel-simple-rest-api
+cd /var/www/laravel-simple-rest-api
+````
+Isi file .env
+```
+cat > .env << EOF
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=10.81.4.3
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=user
+DB_PASSWORD=password123
+EOF
+```
+Jalankan artisan generate `php artisan key:generate`
+Isi file sites available dengan konfigurasi yang benar
+```
+cat > /etc/nginx/sites-available/anarion << EOF
+# Default server - reject requests via IP
+server {
+    listen 8003 default_server;
+    server_name _;
+    return 444;
+}
+
+# Main server - only accept requests via domain
+server {
+    listen 8003;
+    server_name anarion.k35.com;
+
+    root /var/www/laravel-simple-rest-api/public;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+EOF
+```
+Hapus konfigurasi default
+```
+ln -s /etc/nginx/sites-available/anarion /etc/nginx/sites-enabled/
+rm /etc/nginx/sites-enabled/default
+```
+Ubah hak akses terhadap cache
+```
+cd /var/www/laravel-simple-rest-api
+chown -R www-data:www-data .
+chmod -R 775 storage bootstrap/cache
+```
+Hapus cache dan start nginx serta php
+```
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+
+nginx -t
+service nginx restart
+service php8.4-fpm restart
+```
+# 9
+Pada No 9 kita hanya diminta untuk menguji no 8 yang sudah tersolve dengan benar sehingga dapat terhsrae dengan baik antar node laravel 
+```
+# Node Miriel, Celebrimbor, Gilgalad, Amandil
+echo "nameserver 10.81.3.3" > /etc/resolv.conf
+
+# Test setiap worker
+lynx http://elendil.k35.com:8001
+lynx http://isildur.k35.com:8002
+lynx http://anarion.k35.com:8003
+
+# Test API endpoint
+curl http://elendil.k35.com:8001/api/airing
+curl http://isildur.k35.com:8002/api/airing
+curl http://anarion.k35.com:8003/api/airing
+```
+<img width="1373" height="223" alt="image" src="https://github.com/user-attachments/assets/7dcbc3ea-a38e-4586-a44a-f0116a50026d" />
+
+# 10
+Di no 10 kita akan diminta untuk edit konfigurasi nginx dan server block di dalam elros
+Pertama install nginx `pt-get update && apt-get install -y nginx`
+Disini kita akan membuat upstream group yang berisi 3 backend bernama `kestaria numenor`
+```
+cat > /etc/nginx/sites-available/elros << EOF
+upstream kesatria_numenor {
+    server 10.81.1.2:8001;
+    server 10.81.1.3:8002;
+    server 10.81.1.4:8003;
+}
+
+server {
+    listen 80 default_server;
+    server_name _;
+    return 444;
+}
+
+# Main server - only accept requests via domain
+server {
+    listen 80;
+    server_name elros.k35.com;
+
+    location / {
+        proxy_pass http://kesatria_numenor;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+
+    access_log /var/log/nginx/elros_access.log;
+    error_log /var/log/nginx/elros_error.log;
+}
+EOF
+```
+Disitu kita juga akan menerima semua request dan menolak http 444 yang berarti koneksi ditutup tanpa respons HTTP (spesifik Nginx).
+Kita juga akan mengkonfigurasi untuk Menerima request hanya untuk domain elros.k35.com dan meneruskan upstream kestaria_numenor, header juga ditambahkan didalam ip client. Log akses dan eror juga akan disimpan secara terpisah.
+Kemudian kita akan membuat symlink untuk aktivasi dan hapus konfigurasi default
+```
+ln -s /etc/nginx/sites-available/elros /etc/nginx/sites-enabled/
+rm /etc/nginx/sites-enabled/default
+```
+Lalu jalankan service nginx
+```
+nginx -t
+service nginx restart
+```
+Sebelum melakukan testing kita harus mengecek bahwa nginx benar benar dapat berfungsi dengan baik melalui perintah sederhana
+```
+cat /etc/nginx/sites-available/elros | grep -A 5 upstream
+service nginx status
+netstat -tulpn | grep :80
+```
+Selanjutnya kita harus mengecek langsung dari ip elros
+```
+
 
 # 12
 
