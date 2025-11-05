@@ -693,19 +693,12 @@ tail -f /var/log/nginx/elros_access.log
 tail -100 /var/log/nginx/elros_access.log | grep -o "upstream.*" | sort | uniq -c
 ```
 
-
-
 # 11
 <img width="924" height="1010" alt="image" src="https://github.com/user-attachments/assets/79b15a31-e9e7-48e5-8a5c-e46ca88e9faa" />
 <img width="1112" height="1032" alt="image" src="https://github.com/user-attachments/assets/10ae1874-754a-4211-b5e3-efbb4638b2e1" />
 <img width="1003" height="1017" alt="image" src="https://github.com/user-attachments/assets/13a9cb37-5371-4b1f-b1a7-842cf4617e76" />
 <img width="1910" height="878" alt="image" src="https://github.com/user-attachments/assets/1638745a-1895-41ce-9dd1-364455db5a84" />
 Dapat kita lihat seuma request berhasil secara sempurna tanpa failed request sehingga serngan dengan masing masing permintaaan berjalan ke node elros dapat kita lihat melalui hasil log dan error log di node eleros yang tidak terllau berpengaruh meskipun bisa lebih lambat
-
-
-
-
-
 # 12
 
 Para Penguasa Peri (Galadriel, Celeborn, Oropher) membangun layanan web menggunakan Nginx dan PHP-FPM sebagai fondasi taman digital mereka. Setiap node berfungsi sebagai server mandiri yang menampilkan identitas host-nya melalui halaman index.php sederhana. Konfigurasi Nginx harus memastikan eksekusi PHP berjalan melalui php8.4-fpm, serta membatasi akses hanya melalui domain resmi masing-masing (misalnya galadriel.<xxxx>.com), sehingga akses langsung via IP ditolak. Tujuan akhirnya adalah menciptakan sistem web berbasis domain yang terisolasi namun konsisten di seluruh node.
