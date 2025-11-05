@@ -602,7 +602,7 @@ service nginx status
 netstat -tulpn | grep :80
 ```
 Selanjutnya kita harus mengecek langsung dari ip elros
-```
+
 
 
 # 12
