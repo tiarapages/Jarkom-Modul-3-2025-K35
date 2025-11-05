@@ -671,6 +671,39 @@ service nginx status
 netstat -tulpn | grep :80
 ```
 Selanjutnya kita harus mengecek langsung dari ip elros
+```
+url -o /dev/null -s -w "HTTP Status: %{http_code}\n" http://10.81.1.7 # Denied
+
+curl -o /dev/null -s -w "HTTP Status: %{http_code}\n" http://elros.k35.com # Bisa
+
+curl http://elros.k35.com
+curl http://elros.k35.com/api/airing
+for i in {1..10}; do
+    curl -s http://elros.k35.com/api/airing | grep -o '"id":[0-9]*' | head -1
+done
+
+for i in {1..20}; do
+    curl -s -o /dev/null -w "%{http_code}\n" http://elros.k35.com/api/airing
+done
+```
+Disini kita akan menjalankan perintah untuk mengetes semua curl dengan harapan node sukses dengan hasil 200 sehingga semuanya tersolve dengan baik
+Selanjutnya jalankan dari node tersebut tail agar kita dapat mengetrahui isinya
+```
+tail -f /var/log/nginx/elros_access.log
+tail -100 /var/log/nginx/elros_access.log | grep -o "upstream.*" | sort | uniq -c
+```
+
+
+
+# 11
+<img width="924" height="1010" alt="image" src="https://github.com/user-attachments/assets/79b15a31-e9e7-48e5-8a5c-e46ca88e9faa" />
+<img width="1112" height="1032" alt="image" src="https://github.com/user-attachments/assets/10ae1874-754a-4211-b5e3-efbb4638b2e1" />
+<img width="1003" height="1017" alt="image" src="https://github.com/user-attachments/assets/13a9cb37-5371-4b1f-b1a7-842cf4617e76" />
+<img width="1910" height="878" alt="image" src="https://github.com/user-attachments/assets/1638745a-1895-41ce-9dd1-364455db5a84" />
+Dapat kita lihat seuma request berhasil secara sempurna tanpa failed request sehingga serngan dengan masing masing permintaaan berjalan ke node elros dapat kita lihat melalui hasil log dan error log di node eleros yang tidak terllau berpengaruh meskipun bisa lebih lambat
+
+
+
 
 
 # 12
