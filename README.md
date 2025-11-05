@@ -5,6 +5,7 @@
 | Tiara Putri Prasetya | 5027241013 |
 | Naufal Ardhana | 5027241118 |
 
+بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
 Berikut merupakan masing masing Address pada node
 | **No** | **Host (Tokoh)**  | **Address** |
 | :----: | ---------------- | ------------- |
